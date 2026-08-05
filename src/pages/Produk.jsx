@@ -32,9 +32,9 @@ export default function Produk() {
 
             <table className="table table-bordered table-striped">
                 <thead className="table-primary">
-                    <tr>
+                    <tr className="text-center">
                         <th>ID</th>
-                        <th>Nama Produk</th>
+                        <th>Produk</th>
                         <th>Deskripsi</th>
                         <th>Harga</th>
                     </tr>
@@ -52,7 +52,7 @@ export default function Produk() {
                     ) : (
                         <tr>
                             <td colSpan="4" className="text-center">
-                                raenek produke.
+                                raenek produk.
                             </td>
                         </tr>
                     )}
