@@ -32,7 +32,7 @@ export default function Kategori() {
 
             <table className="table table-bordered table-striped">
                 <thead className="table-primary">
-                    <tr className="text-center">
+                    <tr>
                         <th>ID</th>
                         <th>Kategori</th>
                     </tr>
