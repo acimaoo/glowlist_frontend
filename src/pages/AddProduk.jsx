@@ -1,27 +1,27 @@
-import { useState,} from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function AddProduk() {
-    const [ fromData, setFormData ] = useState({
+    const [ formData, setFormData ] = useState({
         judul: "",
         deskripsi: "",
         harga: "",
         id_kategori: ""
     })
-
+    const [kategori, setKategori] = useState([]);
     const navigate = useNavigate();
 
     const handleChange = (e) => {
-        setFormData({ ...fromData, [e.target.name]: e.target.value });
+        setFormData({ ...formData, [e.target.name]: e.target.value });
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await fetch("http://localhost:3001/produk", {
+            const res = await fetch("http://localhost:5000/produk", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(fromData)
+                body: JSON.stringify(formData)
             });
             if (res.ok) {
                 alert("Produk berhasil ditambahkan!");
@@ -36,6 +36,20 @@ export default function AddProduk() {
         }
     }
 
+   useEffect(() => {
+    const fetchKategori = async () => {
+        try {
+            const res = await fetch("http://localhost:5000/kategori");
+            const data = await res.json();
+            setKategori(data);
+        } catch (err) {
+            console.error("Gagal mengambil data kategori:", err);
+        }
+    };
+
+    fetchKategori();
+}, []);
+
     return (
         <div className="container mt-4">
             <h2 className="mb-3">Tambah Produk</h2>
@@ -45,7 +59,7 @@ export default function AddProduk() {
                     <input
                         type="text"
                         name="judul"
-                        value={fromData.judul}
+                        value={formData.judul}
                         onChange={handleChange}
                         className="form-control"
                         placeholder="Masukkan nama produk"
@@ -56,7 +70,7 @@ export default function AddProduk() {
                     <label className="form-label">Deskripsi</label>
                     <textarea
                         name="deskripsi"
-                        value={fromData.deskripsi}
+                        value={formData.deskripsi}
                         onChange={handleChange}
                         className="form-control"
                         placeholder="Masukkan deskripsi produk"
@@ -68,7 +82,7 @@ export default function AddProduk() {
                     <input
                         type="number"
                         name="harga"
-                        value={fromData.harga}
+                         value={formData.harga}
                         onChange={handleChange}
                         className="form-control"
                         placeholder="Masukkan harga"
@@ -77,22 +91,28 @@ export default function AddProduk() {
                 </div>
                 <div className="mb-3">
                     <label className="form-label">Kategori</label>
-                    <input
-                        type="number"
+                    <select
                         name="id_kategori"
-                        value={fromData.id_kategori}
+                        value={formData.id_kategori}   
                         onChange={handleChange}
-                        className="form-control"
-                        placeholder="Masukkan ID Kategori"
-                        required
-                    />
+                        className="form-select"
+                        required>
+                        <option value="">Pilih kategori</option>
+                        {kategori.map((item) => (
+                            <option
+                                key={item.id_kategori}
+                                value={item.id_kategori}>
+                                {item.kategori}
+                            </option>
+                        ))}
+                    </select>
                 </div>
 
                 <div>
                 <button type="submit" className="btn btn-success">
-                    Simpan Produk
+                    Simpan
                 </button>
-                <span className="mx-3"></span>
+                <span className="mx-2"></span>
                 <button type="button" className="btn btn-danger" onClick={() => navigate("/produk")}>
                     Batal
                 </button>
