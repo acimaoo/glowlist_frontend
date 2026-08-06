@@ -4,6 +4,7 @@ import Home from "./pages/Home.jsx";
 
 import Produk from "./pages/Produk.jsx";
 import AddProduk from "./pages/AddProduk.jsx";
+import EditProduk from "./pages/EditProduk.jsx";
 
 import Kategori from "./pages/Kategori.jsx";
 import Tentang from "./pages/Tentang.jsx";
@@ -17,6 +18,7 @@ export default function App() {
 
           <Route path="produk" element={<Produk />} />
           <Route path="produk/tambah" element={<AddProduk />} />
+          <Route path="produk/edit/:id" element={<EditProduk />}/>
 
           <Route path="kategori" element={<Kategori />} />
           <Route path="tentang" element={<Tentang />} />

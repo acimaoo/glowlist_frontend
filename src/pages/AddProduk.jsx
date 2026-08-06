@@ -2,13 +2,14 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function AddProduk() {
+    const [kategori, setKategori] = useState([]);
     const [ formData, setFormData ] = useState({
         judul: "",
         deskripsi: "",
         harga: "",
         id_kategori: ""
     })
-    const [kategori, setKategori] = useState([]);
+
     const navigate = useNavigate();
 
     const handleChange = (e) => {
