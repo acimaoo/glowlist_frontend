@@ -83,7 +83,7 @@ export default function AddProduk() {
                     <input
                         type="number"
                         name="harga"
-                         value={formData.harga}
+                        value={formData.harga}
                         onChange={handleChange}
                         className="form-control"
                         placeholder="Masukkan harga"

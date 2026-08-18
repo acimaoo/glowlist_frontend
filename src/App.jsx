@@ -9,13 +9,33 @@ import EditProduk from "./pages/EditProduk.jsx";
 import Kategori from "./pages/Kategori.jsx";
 import Tentang from "./pages/Tentang.jsx";
 
+import { Navigate } from "react-router-dom";
+import  Login from "./pages/Login.jsx";
+
+function ProtectedRoute({ children }) {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    return <Navigate to="/login" replace />
+  }
+  return children;
+}
+
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
+        <Route path="/login" element={<Login/>} />
+        
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Layout />
+            </ProtectedRoute>
+          }
+        >
 
+          <Route index element={<Home />} />
           <Route path="produk" element={<Produk />} />
           <Route path="produk/tambah" element={<AddProduk />} />
           <Route path="produk/edit/:id" element={<EditProduk />}/>

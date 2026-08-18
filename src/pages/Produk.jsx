@@ -62,7 +62,8 @@ export default function Produk() {
                         <th>Produk</th>
                         <th>Deskripsi</th>
                         <th>Harga</th>
-                        <th>Aksi</th>
+                        <th>Edit</th>
+                        <th>Hapus</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -79,6 +80,10 @@ export default function Produk() {
                                         className="btn btn-warning btn-sm me-2"
                                         onClick={() => handleEdit(item.id_produk)}
                                     >Edit</button>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
                                     <button
                                         className="btn btn-danger btn-sm"
                                         onClick={() => handleDelete(item.id_produk)}
@@ -89,7 +94,7 @@ export default function Produk() {
                         ))
                     ) : (
                         <tr>
-                            <td colSpan="4" className="text-center">
+                            <td colSpan="6" className="text-center">
                                 raenek produk.
                             </td>
                         </tr>
