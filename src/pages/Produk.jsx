@@ -62,6 +62,7 @@ export default function Produk() {
                 <thead className="table-primary">
                     <tr className="text-center">
                         <th>ID</th>
+                        <th>Foto</th>
                         <th>Produk</th>
                         <th>Deskripsi</th>
                         <th>Harga</th>
@@ -74,6 +75,17 @@ export default function Produk() {
                         produk.map((item) => (
                             <tr key={item.id_produk}>
                                 <td>{item.id_produk}</td>
+                                <td>{item.nama_file ? (
+                                    <img
+                                    src={`http://localhost:5000/uploads/${item.nama_file}`}
+                                    alt={item.judul}
+                                    width={150}
+                                    className="rounded"
+                                    />
+                                ) : (
+                                    <span className="text-muted">Tidak ada foto</span>
+                                )}
+                                </td>
                                 <td>{item.judul}</td>
                                 <td>{item.deskripsi}</td>
                                 <td>Rp {item.harga.toLocaleString()}</td>
