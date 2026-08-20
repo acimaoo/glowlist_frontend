@@ -7,8 +7,9 @@ export default function AddProduk() {
         judul: "",
         deskripsi: "",
         harga: "",
-        id_kategori: ""
+        id_kategori: "",
     })
+    const [file, setFile] = useState(null);
 
     const navigate = useNavigate();
 
@@ -18,14 +19,28 @@ export default function AddProduk() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (file && file.size > 2 * 1024 * 1024) {
+            alert("Ukuran file terlalu besar, maksimal 2MB");
+            return;
+        }
+
+        const data = new FormData();
+        data.append("judul", formData.judul);
+        data.append("deskripsi", formData.deskripsi);
+        data.append("harga", formData.harga);
+        data.append("id_kategori", formData.id_kategori);
+        if (file) {
+            data.append("file", file);
+        }
+
         try {
             const res = await fetch("http://localhost:5000/produk", {
                 method: "POST",
                 headers: { 
-                    "Content-Type": "application/json", 
-                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
-                body: JSON.stringify(formData)
+                body: data
             });
             if (res.ok) {
                 alert("Produk berhasil ditambahkan!");
@@ -110,6 +125,15 @@ export default function AddProduk() {
                             </option>
                         ))}
                     </select>
+                </div>
+                <div className="mb-3">
+                    <label className="form-label">Foto Produk</label>
+                        <input
+                        type="file"
+                        accept="image/*"
+                        className="form-control"
+                        onChange={(e) => setFile(e.target.files[0])}
+                        />
                 </div>
 
                 <div>
